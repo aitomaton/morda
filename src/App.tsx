@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { 
   LayoutDashboard, 
   Phone, 
@@ -27,14 +27,15 @@ import {
   SidebarInset
 } from '@/components/ui/sidebar'
 
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import SipPage from './pages/SipPage'
 import ChatPage from './pages/ChatPage'
+import DashboardPage from './pages/DashboardPage'
 import useSipStore from './stores/sipStore'
 import useChatStore from './stores/chatStore'
 import { useTheme } from 'next-themes'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './components/ui/dropdown-menu'
+
 function ThemeToggle() {
   const { setTheme } = useTheme()
 
@@ -134,85 +135,10 @@ function App() {
           <div className="relative flex-shrink-0">
             <SidebarTrigger className="absolute left-4 top-3 z-10" />
           </div>
-          <div className="flex flex-col gap-4 pt-12 " style={{height: 'calc(100dvh - 48px)'}}>
-            {/* Dashboard Content */}
-            {activeMenu === 'dashboard' && (
-              <>
-                <div className="flex justify-between items-center">
-                  <h1 className="text-2xl font-bold">Dashboard</h1>
-                  <div className="flex items-center gap-2">
-                    <ThemeToggle />
-                    <Button size="icon" variant="ghost">
-                      <Bell className="h-5 w-5" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <Card className="dashboard-card">
-                    <CardHeader>
-                      <CardTitle>Total Users</CardTitle>
-                      <CardDescription>Active users in your system</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-3xl font-bold">1,234</p>
-                    </CardContent>
-                    <CardFooter>
-                      <p className="text-sm text-muted-foreground">+12% from last month</p>
-                    </CardFooter>
-                  </Card>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Revenue</CardTitle>
-                      <CardDescription>Monthly revenue</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-3xl font-bold">$45,231</p>
-                    </CardContent>
-                    <CardFooter>
-                      <p className="text-sm text-muted-foreground">+5.2% from last month</p>
-                    </CardFooter>
-                  </Card>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle>Active Sessions</CardTitle>
-                      <CardDescription>Current active sessions</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-3xl font-bold">342</p>
-                    </CardContent>
-                    <CardFooter>
-                      <p className="text-sm text-muted-foreground">+18% from yesterday</p>
-                    </CardFooter>
-                  </Card>
-                </div>
-                <Card className="w-full">
-                  <CardHeader>
-                    <CardTitle>Recent Activity</CardTitle>
-                    <CardDescription>Your recent activity on the platform</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {[1, 2, 3, 4, 5].map((item) => (
-                        <div key={item} className="flex items-center gap-4 rounded-lg border p-3">
-                          <div className="flex-1">
-                            <p className="font-medium">Activity {item}</p>
-                            <p className="text-sm text-muted-foreground">Action performed {item} hours ago</p>
-                          </div>
-                          <Button variant="ghost" size="sm">Details</Button>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </>
-            )}
-            {/* SIP Account Content */}
+          <div className="flex flex-col gap-4 pt-12" style={{height: 'calc(100dvh - 48px)'}}>
+            {activeMenu === 'dashboard' && <DashboardPage />}
             {activeMenu === 'sip' && <SipPage />}
-            
-            {/* Chat & Agents Content */}
             {activeMenu === 'chat' && <ChatPage />}
-            
-            {/* Settings Content */}
             {activeMenu === 'settings' && (
               <>
                 <div className="flex justify-between items-center">
