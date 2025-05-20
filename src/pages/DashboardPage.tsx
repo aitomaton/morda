@@ -1,14 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { 
-  MessageSquare, 
-  Users, 
-  LayoutDashboard, 
-  Robot, 
-  CreditCard,
-  BarChart3,
-  TrendingUp
-} from 'lucide-react';
+import { MessageSquare, Users, LayoutDashboard, Notebook as Robot, CreditCard, BarChart3, TrendingUp } from 'lucide-react';
 import {
   LineChart,
   Line,
